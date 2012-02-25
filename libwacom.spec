@@ -1,4 +1,5 @@
 Summary:	Wacom model feature query library
+Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
 Version:	0.3
 Release:	1
@@ -10,22 +11,26 @@ URL:		http://linuxwacom.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
 BuildRequires:	doxygen
-BuildRequires:	glib2-devel
+BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	udev-glib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-libwacom is a library to identify wacom tablets and their
+libwacom is a library to identify Wacom tablets and their
 model-specific features.
+
+%description -l pl.UTF-8
+libwacom to biblioteka identyfikująca tablety Wacom oraz ich
+możliwości zależne od modelu.
 
 %package devel
 Summary:	Header files for libwacom library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libwacom
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel
+Requires:	glib2-devel >= 2.0
 
 %description devel
 Header files for libwacom library.
@@ -74,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS README
+%doc COPYING NEWS README
 %attr(755,root,root) %{_libdir}/libwacom.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libwacom.so.2
 %{_datadir}/libwacom
