@@ -1,18 +1,21 @@
 Summary:	Wacom model feature query library
 Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
-Version:	0.6
-Release:	2
+Version:	0.7
+Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/linuxwacom/%{name}-%{version}.tar.bz2
-# Source0-md5:	33dc2f4d8230754305c3f59525f04550
+# Source0-md5:	7fe2b0ff676fd7a48ebae3b69314eaf7
 URL:		http://linuxwacom.sourceforge.net/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
 BuildRequires:	doxygen
 BuildRequires:	glib2-devel >= 2.0
+BuildRequires:	gtk+2-devel
+BuildRequires:	librsvg-devel >= 2.0
 BuildRequires:	libtool
+BuildRequires:	libxml2-devel
 BuildRequires:	pkgconfig
 BuildRequires:	udev-glib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
