@@ -1,13 +1,14 @@
 Summary:	Wacom model feature query library
 Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
-Version:	0.29
+Version:	1.1
 Release:	1
 License:	MIT
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/linuxwacom/%{name}-%{version}.tar.bz2
-# Source0-md5:	3a6b614b57518b25a102dcd9e51d6681
-URL:		http://linuxwacom.sourceforge.net/
+#Source0Download: https://github.com/linuxwacom/libwacom/releases
+Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
+# Source0-md5:	fb0ecf9b12b97509d31d8f8d86558033
+URL:		https://linuxwacom.github.io/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
 BuildRequires:	doxygen
@@ -64,7 +65,8 @@ Statyczna biblioteka libwacom.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-silent-rules
+	--disable-silent-rules \
+	--with-udev-dir=/lib/udev
 %{__make}
 
 %install
@@ -83,11 +85,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING NEWS README
+%doc COPYING NEWS README.md
 %attr(755,root,root) %{_bindir}/libwacom-list-local-devices
 %attr(755,root,root) %{_libdir}/libwacom.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libwacom.so.2
 %{_datadir}/libwacom
+/lib/udev/rules.d/65-libwacom.rules
+%{_mandir}/man1/libwacom-list-local-devices.1*
 
 %files devel
 %defattr(644,root,root,755)
