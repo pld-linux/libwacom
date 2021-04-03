@@ -1,13 +1,13 @@
 Summary:	Wacom model feature query library
 Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
-Version:	1.5
+Version:	1.9
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/linuxwacom/libwacom/releases
 Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	7699e6489db4857ef79189f2a957b3e9
+# Source0-md5:	67aec245e7c1ee7f585a85a2c27db9d8
 URL:		https://linuxwacom.github.io/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
@@ -18,6 +18,7 @@ BuildRequires:	librsvg-devel >= 2.0
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
+BuildRequires:	sed >= 4.0
 BuildRequires:	udev-glib-devel
 Requires:	glib2 >= 1:2.36
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,6 +59,8 @@ Statyczna biblioteka libwacom.
 %prep
 %setup -q
 
+%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' tools/show-stylus.py
+
 %build
 %{__libtoolize}
 %{__aclocal}
@@ -87,6 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc COPYING NEWS README.md
 %attr(755,root,root) %{_bindir}/libwacom-list-local-devices
+%attr(755,root,root) %{_bindir}/libwacom-show-stylus
 %attr(755,root,root) %{_libdir}/libwacom.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libwacom.so.2
 %{_datadir}/libwacom
