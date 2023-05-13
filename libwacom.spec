@@ -1,30 +1,33 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# API documentation
 %bcond_without	static_libs	# static library
 
 Summary:	Wacom model feature query library
 Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
-Version:	1.12.1
+Version:	2.6.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/linuxwacom/libwacom/releases
-Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	702bb88b5b3e312290c8aefcc11a65fd
+Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
+# Source0-md5:	a1efa7b814dbf8165874668b2900cc58
 URL:		https://linuxwacom.github.io/
-BuildRequires:	autoconf >= 2.60
-BuildRequires:	automake
-BuildRequires:	doxygen
+%{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	glib2-devel >= 1:2.36
 BuildRequires:	gtk+2-devel >= 1:2.0
 BuildRequires:	librsvg-devel >= 2.0
-BuildRequires:	libtool >= 2:2
 BuildRequires:	libxml2-devel >= 2.0
+BuildRequires:	meson >= 0.51.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	sed >= 4.0
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel
+BuildRequires:	xz
 Requires:	glib2 >= 1:2.36
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -66,25 +69,22 @@ Statyczna biblioteka libwacom.
 
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' tools/{libwacom-update-db,show-stylus}.py
 
+%if %{with static_libs}
+%{__sed} -i -e '/^lib_libwacom =/ s/shared_library/library/' meson.build
+%endif
+
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static} \
-	--with-udev-dir=/lib/udev
-%{__make}
+%meson build \
+	%{?with_apidocs:-Ddocumentation=enabled} \
+	-Dtests=disabled \
+	-Dudev-dir=/lib/udev
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%ninja_install -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -100,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/libwacom-show-stylus
 %attr(755,root,root) %{_bindir}/libwacom-update-db
 %attr(755,root,root) %{_libdir}/libwacom.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libwacom.so.2
+%attr(755,root,root) %ghost %{_libdir}/libwacom.so.9
 %{_datadir}/libwacom
 /lib/udev/hwdb.d/65-libwacom.hwdb
 /lib/udev/rules.d/65-libwacom.rules
