@@ -6,13 +6,13 @@
 Summary:	Wacom model feature query library
 Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
-Version:	2.6.0
+Version:	2.8.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/linuxwacom/libwacom/releases
 Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	a1efa7b814dbf8165874668b2900cc58
+# Source0-md5:	6de0c2123d53dddd1966e2663d324c32
 URL:		https://linuxwacom.github.io/
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	glib2-devel >= 1:2.36
