@@ -6,20 +6,21 @@
 Summary:	Wacom model feature query library
 Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
-Version:	2.11.0
+Version:	2.12.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/linuxwacom/libwacom/releases
 Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	fa489522c2b5f014360f44a3e38a30f8
+# Source0-md5:	e78b52ef85b0b3fdbb5c5805c15cf305
 URL:		https://linuxwacom.github.io/
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	glib2-devel >= 1:2.36
 BuildRequires:	gtk+2-devel >= 1:2.0
+BuildRequires:	libevdev-devel
 BuildRequires:	librsvg-devel >= 2.0
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	meson >= 0.51.0
+BuildRequires:	meson >= 0.56.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
@@ -45,6 +46,8 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libwacom
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.36
+Requires:	libevdev-devel
+Requires:	udev-glib-devel
 
 %description devel
 Header files for libwacom library.
