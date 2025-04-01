@@ -22,7 +22,7 @@ BuildRequires:	meson >= 0.57.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel
@@ -75,17 +75,17 @@ Statyczna biblioteka libwacom.
 %endif
 
 %build
-%meson build \
+%meson \
 	%{?with_apidocs:-Ddocumentation=enabled} \
 	-Dtests=disabled \
 	-Dudev-dir=/lib/udev
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %clean
 rm -rf $RPM_BUILD_ROOT
