@@ -6,13 +6,13 @@
 Summary:	Wacom model feature query library
 Summary(pl.UTF-8):	Biblioteka identyfikująca modele i możliwości tabletów Wacom
 Name:		libwacom
-Version:	2.18.0
+Version:	2.19.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://github.com/linuxwacom/libwacom/releases
 Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
-# Source0-md5:	a67c141b099b841eecd3024ba7f9d576
+# Source0-md5:	471f8da9fc4ff7adc5463d34cc657e4f
 URL:		https://linuxwacom.github.io/
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	glib2-devel >= 1:2.36
@@ -100,8 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/libwacom-list-local-devices
 %attr(755,root,root) %{_bindir}/libwacom-show-stylus
 %attr(755,root,root) %{_bindir}/libwacom-update-db
-%attr(755,root,root) %{_libdir}/libwacom.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libwacom.so.9
+%{_libdir}/libwacom.so.*.*.*
+%ghost %{_libdir}/libwacom.so.9
 %{_datadir}/libwacom
 /lib/udev/hwdb.d/65-libwacom.hwdb
 /lib/udev/rules.d/65-libwacom.rules
@@ -111,7 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libwacom.so
+%{_libdir}/libwacom.so
 %{_includedir}/libwacom-1.0
 %{_pkgconfigdir}/libwacom.pc
 
