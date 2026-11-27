@@ -15,8 +15,9 @@ Source0:	https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{vers
 # Source0-md5:	4ddf6476047a10c8fbaaba6b30a672e6
 URL:		https://linuxwacom.github.io/
 %{?with_apidocs:BuildRequires:	doxygen}
-BuildRequires:	glib2-devel >= 1:2.36
+BuildRequires:	glib2-devel >= 1:2.68
 BuildRequires:	libevdev-devel
+BuildRequires:	libgudev-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	meson >= 0.58.0
 BuildRequires:	ninja >= 1.5
@@ -25,9 +26,8 @@ BuildRequires:	python3 >= 1:3
 BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	udev-glib-devel
 BuildRequires:	xz
-Requires:	glib2 >= 1:2.36
+Requires:	glib2%{?_isa} >= 1:2.68
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,10 +42,10 @@ możliwości zależne od modelu.
 Summary:	Header files for libwacom library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libwacom
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.36
-Requires:	libevdev-devel
-Requires:	udev-glib-devel
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	glib2-devel%{?_isa} >= 1:2.68
+Requires:	libevdev-devel%{?_isa}
+Requires:	libgudev-devel%{?_isa}
 
 %description devel
 Header files for libwacom library.
@@ -57,7 +57,7 @@ Pliki nagłówkowe biblioteki libwacom.
 Summary:	Static libwacom library
 Summary(pl.UTF-8):	Statyczna biblioteka libwacom
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
 Static libwacom library.
